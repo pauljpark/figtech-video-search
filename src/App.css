@@ -1,0 +1,51 @@
+.App {
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-around;
+}
+
+form {
+  margin: 25px 0px;
+  width: 50%;
+  height: 3vh;
+}
+
+input {
+  width: 25vw;
+}
+
+.saved-vids-btn {
+  margin: 25px 0px;
+  font-size: 16px;
+  width: 50%;
+}
+.saved-vids-btn:hover {
+  cursor: pointer;
+}
+
+.videos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, auto));
+  grid-template-rows: repeat(auto-fit, minmax(250px, auto));
+  margin-bottom: 24px;
+  /*justify-content: center;*/
+}
+p {
+  border: 1px solid brown;
+  font-weight: bold;
+  width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.single-vid-item {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
