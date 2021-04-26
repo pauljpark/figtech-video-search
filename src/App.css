@@ -39,7 +39,12 @@ form,
   grid-template-columns: repeat(auto-fit, minmax(400px, auto));
   grid-template-rows: repeat(auto-fit, minmax(250px, auto));
   margin: 24px 0px;
-  /*justify-content: center;*/
+}
+.saved-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(325px, auto));
+  grid-template-rows: repeat(auto-fit, minmax(250px, auto));
+  margin: 24px 0px;
 }
 p {
   font-weight: bold;

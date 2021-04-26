@@ -14,7 +14,7 @@ export default function SavedVids(props) {
   }
 
   return (
-    <div className="videos-container">
+    <div className="saved-container">
       <ModalVideo
         channel="youtube"
         youtube={{
