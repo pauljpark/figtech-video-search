@@ -1,6 +1,6 @@
 # Demo Gif
 
-![react-gif](https://qu.ax/MyO.gif)
+<img src="https://media.giphy.com/media/7N7GRl8u3TeNgWdHEw/giphy.gif" width=600 />
 
 # Getting Started with Create React App
 
