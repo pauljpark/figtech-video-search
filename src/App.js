@@ -3,19 +3,16 @@ import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 import SearchIcon from "@material-ui/icons/Search"
 import InputAdornment from "@material-ui/core/InputAdornment"
-import ModalVideo from "react-modal-video"
-import "react-modal-video/scss/modal-video.scss"
-import he from "he"
+import VidSearchResults from "./components/VidSearchResults"
+import SavedVids from "./components/SavedVids"
 import "./App.css"
 
 export default function App() {
   const [endpoint, setEndpoint] = useState("")
-  const [response, setResponse] = useState([])
+  const [results, setResults] = useState([])
   const [saved, setSaved] = useState([])
   const [toggle, setToggle] = useState(false)
   const [showHome, setShowHome] = useState(true)
-  const [isOpen, setOpen] = useState(false)
-  const [vidId, setVidId] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -23,7 +20,7 @@ export default function App() {
     setShowHome(false)
     fetch(endpoint)
       .then((res) => res.json())
-      .then((json) => setResponse(json.items))
+      .then((json) => setResults(json.items))
   }
 
   const onChange = (e) => {
@@ -37,18 +34,12 @@ export default function App() {
       return null
     } else {
       setSaved([...saved, vid])
-      console.log(saved)
     }
   }
 
   const onDelete = (key) => {
     const newSavedVids = saved.filter((video) => video.id.videoId !== key)
     setSaved(newSavedVids)
-  }
-
-  const modalHandle = (id) => {
-    setOpen(true)
-    setVidId(id)
   }
 
   return (
@@ -86,77 +77,15 @@ export default function App() {
       </div>
       {toggle ? (
         saved[0] !== undefined ? (
-          <div className="videos-container">
-            <ModalVideo
-              channel="youtube"
-              youtube={{
-                autoplay: 1,
-                mute: 1,
-              }}
-              isOpen={isOpen}
-              videoId={vidId}
-              onClose={() => setOpen(false)}
-            />
-            {saved.map((item) => (
-              <div key={item.id.videoId} className="single-vid-item">
-                <p style={{ width: "250px" }}>{item.snippet.title}</p>
-                <img
-                  className="btn-primary"
-                  src={item.snippet.thumbnails.medium.url}
-                  alt="thumbnail"
-                  width="250px"
-                  onClick={() => modalHandle(item.id.videoId)}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => onDelete(item.id.videoId)}
-                >
-                  Delete
-                </Button>
-              </div>
-            ))}
-          </div>
+          <SavedVids saved={saved} delete={onDelete} />
         ) : (
           <h1>No Videos Saved!</h1>
         )
       ) : showHome ? (
         <h1>Search for a video, any video.</h1>
       ) : (
-        <div className="videos-container">
-          <ModalVideo
-            channel="youtube"
-            youtube={{
-              autoplay: 1,
-              mute: 1,
-            }}
-            isOpen={isOpen}
-            videoId={vidId}
-            onClose={() => setOpen(false)}
-          />
-          {response.map((item) => (
-            <div key={item.id.videoId} className="single-vid-item">
-              <p>{he.decode(item.snippet.title)}</p>
-              <img
-                className="btn-primary"
-                src={item.snippet.thumbnails.medium.url}
-                alt="thumbnail"
-                width="400px"
-                onClick={() => modalHandle(item.id.videoId)}
-              />
-              <Button
-                className="save-btn"
-                variant="contained"
-                color="primary"
-                onClick={() => saveClick(item)}
-              >
-                Save
-              </Button>
-            </div>
-          ))}
-        </div>
+        <VidSearchResults results={results} save={saveClick} />
       )}
-      {/* <h3>{JSON.stringify(response[1])}</h3> */}
     </div>
   )
 }
