@@ -3,6 +3,8 @@ import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 import SearchIcon from "@material-ui/icons/Search"
 import InputAdornment from "@material-ui/core/InputAdornment"
+import ModalVideo from "react-modal-video"
+import "react-modal-video/scss/modal-video.scss"
 import "./App.css"
 
 export default function App() {
@@ -11,6 +13,8 @@ export default function App() {
   const [saved, setSaved] = useState([])
   const [toggle, setToggle] = useState(false)
   const [showHome, setShowHome] = useState(true)
+  const [isOpen, setOpen] = useState(false)
+  const [vidId, setVidId] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -39,6 +43,11 @@ export default function App() {
   const onDelete = (key) => {
     const newSavedVids = saved.filter((video) => video.id.videoId !== key)
     setSaved(newSavedVids)
+  }
+
+  const modalHandle = (id) => {
+    setOpen(true)
+    setVidId(id)
   }
 
   return (
@@ -76,18 +85,30 @@ export default function App() {
       {toggle ? (
         saved[0] !== undefined ? (
           <div className="videos-container">
+            <ModalVideo
+              channel="youtube"
+              youtube={{
+                autoplay: 1,
+                mute: 1,
+              }}
+              isOpen={isOpen}
+              videoId={vidId}
+              onClose={() => setOpen(false)}
+            />
             {saved.map((item) => (
               <div key={item.id.videoId} className="single-vid-item">
                 <p style={{ width: "250px" }}>{item.snippet.title}</p>
                 <img
+                  className="btn-primary"
                   src={item.snippet.thumbnails.medium.url}
                   alt="thumbnail"
                   width="250px"
-                  onClick={() =>
-                    window.open(
-                      `https://www.youtube.com/watch?v=${item.id.videoId}`
-                    )
-                  }
+                  onClick={() => modalHandle(item.id.videoId)}
+                  // onClick={() =>
+                  //   window.open(
+                  //     `https://www.youtube.com/watch?v=${item.id.videoId}`
+                  //   )
+                  // }
                 />
                 <Button
                   variant="contained"
@@ -103,21 +124,33 @@ export default function App() {
           <h1>No Videos Saved!</h1>
         )
       ) : showHome ? (
-        <h1>Search for a video, any video...</h1>
+        <h1>Search for a video, any video.</h1>
       ) : (
         <div className="videos-container">
+          <ModalVideo
+            channel="youtube"
+            youtube={{
+              autoplay: 1,
+              mute: 1,
+            }}
+            isOpen={isOpen}
+            videoId={vidId}
+            onClose={() => setOpen(false)}
+          />
           {response.map((item) => (
             <div key={item.id.videoId} className="single-vid-item">
               <p>{item.snippet.title}</p>
               <img
+                className="btn-primary"
                 src={item.snippet.thumbnails.medium.url}
                 alt="thumbnail"
                 width="400px"
-                onClick={() =>
-                  window.open(
-                    `https://www.youtube.com/watch?v=${item.id.videoId}`
-                  )
-                }
+                onClick={() => modalHandle(item.id.videoId)}
+                // onClick={() =>
+                //   window.open(
+                //     `https://www.youtube.com/watch?v=${item.id.videoId}`
+                //   )
+                // }
               />
               <Button
                 className="save-btn"

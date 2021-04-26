@@ -6,12 +6,10 @@ import reportWebVitals from "./reportWebVitals"
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 
 const theme = createMuiTheme({
+  shadows: ["none"],
   palette: {
     primary: {
-      main: "#B7B8C7",
-    },
-    secondary: {
-      main: "#f2eeee",
+      main: "#E0B5BB",
     },
   },
 })

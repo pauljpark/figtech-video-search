@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap");
 
 * {
   box-sizing: border-box;
@@ -19,11 +19,13 @@
 h1 {
   font-size: 65px;
   font-weight: lighter;
+  margin-top: 150px;
 }
 
 form,
 .saved-vids-btn {
   width: 50%;
+  font-weight: bold;
 }
 .saved-vids-btn:hover {
   cursor: pointer;
@@ -40,7 +42,6 @@ form,
   /*justify-content: center;*/
 }
 p {
-  border: 1px solid brown;
   font-weight: bold;
   width: 400px;
   overflow: hidden;
@@ -49,7 +50,6 @@ p {
   margin-bottom: 5px;
 }
 .single-vid-item {
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   justify-content: center;
