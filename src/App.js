@@ -5,6 +5,7 @@ import SearchIcon from "@material-ui/icons/Search"
 import InputAdornment from "@material-ui/core/InputAdornment"
 import ModalVideo from "react-modal-video"
 import "react-modal-video/scss/modal-video.scss"
+import he from "he"
 import "./App.css"
 
 export default function App() {
@@ -56,6 +57,7 @@ export default function App() {
         <form onSubmit={handleSubmit}>
           <TextField
             className="textfield"
+            spellCheck={false}
             label="Search..."
             color="primary"
             variant="filled"
@@ -104,11 +106,6 @@ export default function App() {
                   alt="thumbnail"
                   width="250px"
                   onClick={() => modalHandle(item.id.videoId)}
-                  // onClick={() =>
-                  //   window.open(
-                  //     `https://www.youtube.com/watch?v=${item.id.videoId}`
-                  //   )
-                  // }
                 />
                 <Button
                   variant="contained"
@@ -139,18 +136,13 @@ export default function App() {
           />
           {response.map((item) => (
             <div key={item.id.videoId} className="single-vid-item">
-              <p>{item.snippet.title}</p>
+              <p>{he.decode(item.snippet.title)}</p>
               <img
                 className="btn-primary"
                 src={item.snippet.thumbnails.medium.url}
                 alt="thumbnail"
                 width="400px"
                 onClick={() => modalHandle(item.id.videoId)}
-                // onClick={() =>
-                //   window.open(
-                //     `https://www.youtube.com/watch?v=${item.id.videoId}`
-                //   )
-                // }
               />
               <Button
                 className="save-btn"
